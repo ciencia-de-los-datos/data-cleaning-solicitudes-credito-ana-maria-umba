@@ -11,8 +11,6 @@ import pandas as pd
 
 def clean_data():
 
-    import datetime
-
     df = pd.read_csv("solicitudes_credito.csv", sep=";",index_col = 0)
 
     df['tipo_de_emprendimiento'] = df['tipo_de_emprendimiento'].str.lower()
@@ -22,7 +20,7 @@ def clean_data():
     df['línea_credito'] = df['línea_credito'].str.lower()
     df['comuna_ciudadano'] = df['comuna_ciudadano'].astype(int)
     df['monto_del_credito'] = df['monto_del_credito'].apply(lambda x: x.replace('$', '')).apply(lambda x: x.replace(',', '')).astype(float).astype(int)
-
+    import datetime
     df['fecha_de_beneficio'] = pd.to_datetime(df['fecha_de_beneficio'], dayfirst= True)
     df['fecha_de_beneficio'] = pd.to_datetime(df['fecha_de_beneficio'], format='%Y/%m/%d', infer_datetime_format = False ).dt.date
 
